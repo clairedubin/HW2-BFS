@@ -21,8 +21,36 @@ class Graph:
         * If there is an end node input and a path does not exist, return None
 
         """
-        return
+        if start not in self.graph.nodes():
+            raise Exception("Node {} not in graph.".format(start))
+        
+        if end and end not in self.graph.nodes():
+            raise Exception("Node {} not in graph.".format(end))
+        
+        #queue format: (node, distance)
+        q = [(start,[])]
+        visited = []
+        
+        while len(q) > 0:
+            curr_node, curr_path = q.pop(0)
+            if curr_node in visited:
+                continue
+            if curr_node == end:
+                return curr_path + [curr_node]
+            q += self.get_children(curr_node, curr_path)
+            visited += [curr_node]
 
+        if len(q) == 0 and not end:
+            return visited
+        
+        #no path exists form start to end
+        if len(q) == 0 and end:
+            return
+        
+    def get_children(self, node, curr_path):
+        """Returns list of tuples of child nodes and their distance from the start node """
+
+        return [(i,curr_path+[node]) for i in self.graph.neighbors(node)]
 
 
 
