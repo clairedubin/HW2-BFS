@@ -17,10 +17,15 @@ def test_bfs_traversal():
     assert(len(marina_traverse)==30), "All nodes should be visited once"
     assert(len(set(marina_traverse)) == 30), "All nodes should be visited once"
 
-    #check that exception is raised for a start node not in the graph
+    correct_first_five = ['Marina Sirota', '31486345', 'Michael Keiser', '33232663', 'Charles Chiu']
+    assert marina_traverse[:5] == correct_first_five, "First 5 visited nodes not as expected"
+
+
+    #start node not in the graph - raises exception
     with pytest.raises(Exception):
         assert(g.bfs('Fake Node')), "Start node not in tree should raise exception"
         
+    print(marina_traverse)
 
 
 def test_bfs():
